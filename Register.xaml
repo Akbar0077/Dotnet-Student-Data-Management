@@ -1,0 +1,101 @@
+﻿<Window x:Class="StoreAppMVVM1.View.Register"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StoreAppMVVM1.View"
+        xmlns:converter="clr-namespace:StoreAppMVVM1.Converter"
+        mc:Ignorable="d"
+        Title="Register" Height="504" Width="800">
+    <Window.Resources>
+        <converter:MaletoBoolConverter x:Key="MtoBConverter"></converter:MaletoBoolConverter>
+        <converter:FemaletoBoolConverter x:Key="FtoBConverter"></converter:FemaletoBoolConverter>
+        <converter:VistoBoolConverter x:Key="VtoBConverter"></converter:VistoBoolConverter>
+    </Window.Resources>
+    <Grid Background="Violet">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Registration Form" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#009688" Margin="0,20"/>
+
+        <StackPanel  Grid.Column="0" Grid.Row="1" Orientation="Horizontal" Margin="20">
+            <Label Content="Name" VerticalAlignment="Center" Foreground="#212121" Width="100"/>
+            <TextBox Text="{Binding Student.Name}" Margin="10,0,0,0" Width="200"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" Margin="20">
+            <Label Content="Age" VerticalAlignment="Center" Foreground="#212121" Width="100"/>
+            <TextBox Text="{Binding Student.Age}" Margin="10,0,0,0" Width="200" />
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal" Margin="20">
+            <Label Content="Password" VerticalAlignment="Center" Foreground="#212121" Width="100"/>
+            <TextBox Text="{Binding Student.Password}" Margin="10,0,0,0" Width="200"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="5" Orientation="Horizontal" Margin="20">
+            <Label Content="Salary" VerticalAlignment="Center" Foreground="#212121" Width="100"/>
+            <TextBox Text="{Binding Student.Salary}" Margin="10,0,0,0" Width="200"/>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="7"  Margin="20">
+            <TextBlock  Text="Gen" ></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="8"  Margin="20" Orientation="Horizontal"  Visibility="{Binding Student.isGenShow,Converter={StaticResource VtoBConverter}}">
+            <RadioButton Content="Male" IsChecked="{Binding Student.Gen,Converter={StaticResource MtoBConverter}}"></RadioButton>
+            <RadioButton Content="Female" IsChecked="{Binding Student.Gen,Converter={StaticResource FtoBConverter}}"></RadioButton>
+        </StackPanel>
+
+        <Button Grid.Column="0" Grid.Row="10" Content="Register" Command="{Binding RegisterCommand}" Width="100" Height="40" HorizontalAlignment="Center" Margin="0,20" Background="#009688" Foreground="White" FontWeight="Bold"/>
+
+        <Button Grid.Column="0" Grid.Row="10" Content="Clear" Command="{Binding ClearCommand}" Width="100" Height="40" HorizontalAlignment="Left" Margin="0,20" Background="#009688" Foreground="White" FontWeight="Bold"/>
+        <StackPanel Grid.Column="1" Grid.RowSpan="4">
+           <ListView Margin="10" ItemsSource="{Binding StudentList}">
+             <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                    <GridViewColumn Header="Age" Width="120" DisplayMemberBinding="{Binding Age}"></GridViewColumn>
+                    <GridViewColumn Header="Password" Width="120" DisplayMemberBinding="{Binding Password}"></GridViewColumn>
+                    <GridViewColumn Header="Salary" Width="120" DisplayMemberBinding="{Binding Salary}"></GridViewColumn>
+                    <GridViewColumn Header="Gender" Width="120" DisplayMemberBinding="{Binding Gen}"></GridViewColumn>
+
+                    </GridView>
+             </ListView.View>
+           </ListView>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="3" Grid.RowSpan="6">
+            <Label Content="Search" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"></Label>
+            <TextBox Text="{Binding SearchUser}"></TextBox>
+            <Button Content="Search" FontWeight="Bold" Command="{Binding SearchCommand}"></Button>
+            <!--<DataGrid x:Name="datagrid" ItemsSource="{Binding Path=data}" AutoGenerateColumns="True">
+
+            </DataGrid>-->
+            <ListView Margin="10" ItemsSource="{Binding SearchList}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                        <GridViewColumn Header="Age" Width="120" DisplayMemberBinding="{Binding Age}"></GridViewColumn>
+                        <GridViewColumn Header="Password" Width="120" DisplayMemberBinding="{Binding Password}"></GridViewColumn>
+                        <GridViewColumn Header="Salary" Width="120" DisplayMemberBinding="{Binding Salary}"></GridViewColumn>
+                        <GridViewColumn Header="Gender" Width="120" DisplayMemberBinding="{Binding Gen}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+    </Grid>
+</Window>
